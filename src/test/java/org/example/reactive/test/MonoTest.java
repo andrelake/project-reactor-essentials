@@ -2,13 +2,26 @@ package org.example.reactive.test;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
 @Slf4j
 public class MonoTest {
 
     @Test
-    public void test() {
+    public void monoSubscriber() {
+        String name = "André Lago";
+        Mono<String> mono = Mono.just(name)
+                .log();
 
-        log.info("Works");
+        mono.subscribe();
+
+        log.info("--------------------------------------------");
+
+        StepVerifier.create(mono)
+                .expectNext(name)
+                .verifyComplete();
+
+
     }
 }
